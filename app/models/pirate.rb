@@ -1,22 +1,16 @@
 class Pirate
-  get '/' do
-     erb :root
+  attr_accessor :name, :weight, :height
+ 
+   PIRATES = []
+ 
+   def initialize(params)
+     @name = params[:name]
+     @weight = params[:weight]
+     @height = params[:height]
+     PIRATES << self
    end
-
-
-   get '/new' do
-     erb :'pirates/new'
+ 
+   def self.all
+     PIRATES
    end
-
-   post "/pirates" do
-     @pirate = Pirate.new(params[:pirate])
-
-     params[:pirate][:ships].each do |details|
-       Ship.new(details)
-     end
-     @ships = Ship.all
-
-     erb :'pirates/show'
-   end
- end
 end
